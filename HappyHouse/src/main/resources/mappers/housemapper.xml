@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.ssafy.happyhouse.model.dao.HouseMapDao">
+     <select id = "getSido" resultType="com.ssafy.happyhouse.model.SidoGugunCodeDto">
+        select left(sido_code, 2) sido_code, sido_name
+        from sidocode
+        order by sido_code
+     </select>
+     
+     <select id = "getGugunInSido" resultType="com.ssafy.happyhouse.model.SidoGugunCodeDto">
+        select left(gugun_code,5) gugun_code, gugun_name
+        from guguncode
+        where left(gugun_code,2) = #{sido}
+        order by gugun_code
+     </select>
+     
+     <select id = "getDongInGugun" resultType="com.ssafy.happyhouse.model.HouseInfoDto">
+        select distinct dong, code
+        from houseinfo
+        where code = #{gugun}
+        order by dong
+     </select>
+     
+     <select id = "getAptInDong" resultType="com.ssafy.happyhouse.model.HouseInfoDto">
+        select  hd.no, hd.dong, hd.jibun, hd.AptName, hd.area, hd.dealAmount, hd.rentmoney, hi.lat, hi.lng, hi.type
+        from housedeal as hd
+        left join houseinfo as hi
+        on hd.AptName = hi.AptName and hd.dong = hi.dong
+        where hd.dong = #{dong}
+        order by AptName
+     </select>
+     
+     <select id = "getAptByName" resultType="com.ssafy.happyhouse.model.HouseInfoDto">
+        select hd.no, hd.dong, hd.jibun, hd.AptName, hd.area, hd.dealAmount, hd.rentmoney, hi.lat, hi.lng, hi.type
+        from housedeal as hd
+        left join houseinfo as hi
+        on hd.AptName = hi.AptName and hd.dong = hi.dong
+        where hd.dong = #{dong} and hd.AptName like concat('%', #{aptName}, '%')
+        order by AptName
+     </select>
+     
+     <select id = "getCodeByName" parameterType="String" resultType="String">
+        select distinct code
+        from houseinfo
+        where dong = #{dong}
+     </select>
+     
+  </mapper>

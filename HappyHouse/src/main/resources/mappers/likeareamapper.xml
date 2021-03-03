@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.ssafy.happyhouse.model.dao.LikeAreaDao">
+  	<select id = "select" resultType="com.ssafy.happyhouse.model.LikeAreaDto">
+  		select userid, sido, gugun, dong
+  		from likearea
+  		where userid = #{userid}
+  	</select>
+  	
+  	<insert id="insert" parameterType="com.ssafy.happyhouse.model.LikeAreaDto">
+ 		insert into likearea
+ 		(userid, sido, gugun, dong)
+ 		values (#{userid}, #{sido}, #{gugun}, #{dong})
+  	</insert>
+  	
+  	<update id="update" parameterType="com.ssafy.happyhouse.model.LikeAreaDto">
+  		update likearea
+  		set sido = #{sido}, gugun = #{gugun}, dong = #{dong}
+  		where userid = #{userid}
+  	</update>
+  	
+  	<delete id="delete">
+		delete from likearea
+		where userid = #{userid}	
+  	</delete>
+
+  </mapper>

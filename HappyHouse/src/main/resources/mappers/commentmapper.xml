@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.ssafy.happyhouse.model.dao.CommentDao">
+  	<select id = "search" resultType="com.ssafy.happyhouse.model.CommentDto">
+  		select *
+  		from comment
+  		where boardno = #{boardno}
+  		order by no
+  	</select>
+  	
+  	<insert id="insert" parameterType="com.ssafy.happyhouse.model.CommentDto">
+ 		insert into comment
+ 		(boardno, writer, content)
+ 		values (#{boardno}, #{writer}, #{content})
+  	</insert>
+  	
+  	<delete id="delete">
+		delete from comment
+		where no = #{no}
+  	</delete>
+
+  	<delete id="deleteAll">
+		delete from comment
+		where boardno = #{boardno}
+  	</delete>
+
+  </mapper>
